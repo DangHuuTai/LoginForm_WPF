@@ -22,7 +22,8 @@
         <Button
             Width="300"
             x:Name="BtnToLoginPage" 
-            Command="{Binding LoginCommand}">Login</Button>
+            Command="{Binding LoginCommand}"
+            IsDefault="True">Login</Button>
     </Grid>
 
 </Window>

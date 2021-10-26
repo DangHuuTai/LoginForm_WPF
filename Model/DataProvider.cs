@@ -29,6 +29,6 @@ namespace LoginForm.Model
             DB = new hoc_sqlEntities();
         }
 
-        
+            
     }
 }

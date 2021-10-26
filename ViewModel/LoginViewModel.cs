@@ -13,8 +13,6 @@ namespace LoginForm.ViewModel
 {
     class LoginViewModel : BaseViewModel
     {
-        public bool IsLogin { get; set; }
-
         private string inputUserName;
         public string InputUserName { get => inputUserName; set { inputUserName = value; } }
         private string inputPassword;
@@ -27,7 +25,6 @@ namespace LoginForm.ViewModel
 
         public LoginViewModel()
         {
-            IsLogin = false;
             LoginCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 Login(p);
@@ -47,7 +44,6 @@ namespace LoginForm.ViewModel
                 return;
             }
 
-            IsLogin = true;
             if (CheckLoginInfor(InputUserName, InputPassword))
             {
                 MessageBox.Show("Đăng nhập thành công!\nChào " + DisplayName);

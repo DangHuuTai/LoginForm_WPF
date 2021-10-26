@@ -4,10 +4,73 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LoginForm"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="MemberListWindow" Height="450" Width="800"
+        Title="Danh sách thành viên"
+        Height="450"
+        Width="800"
         DataContext="{StaticResource MemberListVM}">
     <Grid>
-        <DataGrid ItemsSource="{Binding MemberList}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <ListView Grid.Column="1"
+                  x:Name="showList"
+                  ItemsSource="{Binding MemberList}"
+                  SelectedItem="{Binding SelectedThanhvien}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding id}"
+                                    Header="id"
+                                    Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding tai_khoan}"
+                                    Header="tài khoản" 
+                                    Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ten}"
+                                    Header="tên" />
+                </GridView>
+            </ListView.View>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonUp">
+                    <i:InvokeCommandAction 
+                        Command="{Binding ItemSelectedCommand}"
+                        CommandParameter="{Binding ElementName=showList, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListView>
+        <StackPanel Grid.Column="0"
+                    Margin="20 10 5 0">
+
+            <TextBlock Text="tài khoản" />
+
+            <ComboBox Margin="50 5 20 5"
+                      ItemsSource="{Binding MemberList}"
+                      DisplayMemberPath="tai_khoan"
+                      SelectedItem="{Binding ElementName=showList,Path=SelectedItem}"/>
+
+            <TextBlock Text="tên" />
+
+            <TextBox Margin="50 5 20 5"
+                     Text="{Binding SelectedThanhvien.ten}"/>
+
+            <Grid Margin="0 30 0 0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0"
+                        Margin="10"
+                        Content="Áp dụng" />
+
+                <Button Grid.Column="1"
+                        Margin="10"
+                        Content="Xóa"
+                        Command="{Binding RemoveThanhvienCommnad}"/>
+            </Grid>
+        </StackPanel>
     </Grid>
 </Window>
